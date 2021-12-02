@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PasswordLocker.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "-n"
+    }
+  }
+}
