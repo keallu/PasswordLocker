@@ -27,7 +27,26 @@ if (args.Length > 0)
             break;
 
         case "n":
-            Console.WriteLine(runner.GeneratePassword());
+            int letters = 6;
+            int digits = 4;
+
+            if (args.Length > 2)
+            {
+                if (args[2].StartsWith("l:"))
+                {
+                    letters = int.Parse(args[2][2..]);
+                }
+            }
+
+            if (args.Length > 3)
+            {
+                if (args[3].StartsWith("d:"))
+                {
+                    digits = int.Parse(args[3][2..]);
+                }
+            }
+
+            Console.WriteLine(runner.GeneratePassword(letters, digits));
             break;
 
         default:
@@ -64,6 +83,8 @@ static void ShowHelp()
     Console.WriteLine("");
     Console.WriteLine("Options:");
     Console.WriteLine("\t-n\tGenerates new password.");
+    Console.WriteLine("\t\tl: Numbers of letters.");
+    Console.WriteLine("\t\td: numbers of digits.");
     Console.WriteLine("");
     Console.WriteLine("Hint: Use clip command to copy output such as password directly to clipboard e.g. \"passwordlocker -n | clip\"");
 }

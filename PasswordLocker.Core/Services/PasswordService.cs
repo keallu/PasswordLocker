@@ -7,17 +7,20 @@ namespace PasswordLocker.Core.Services
     {
         private readonly Random _random = new();
 
-        public string GeneratePassword()
+        public string GeneratePassword(int letters = 6, int digits = 4)
         {
-            return RandomString(6) + RandomNumber(1000, 9999);
+            return RandomString(letters) + RandomNumber(digits);
         }
         public string GetPassword()
         {
             return "Hello World!";
         }
 
-        private int RandomNumber(int min, int max)
+        private int RandomNumber(int length)
         {
+            int min = (int)Math.Pow(10, length - 1);
+            int max = (int)Math.Pow(10, length) - 1;
+
             return _random.Next(min, max);
         }
 

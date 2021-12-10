@@ -10,9 +10,9 @@ namespace PasswordLocker.CLI
         { 
             _passwordService = passwordService;
         }
-        public string GeneratePassword()
+        public string GeneratePassword(int letters, int digits)
         {
-            return _passwordService.GeneratePassword();
+            return _passwordService.GeneratePassword(letters, digits);
         }
 
         public string GetPassword()
