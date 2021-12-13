@@ -11,10 +11,6 @@ namespace PasswordLocker.Core.Services
         {
             return RandomString(letters) + RandomNumber(digits);
         }
-        public string GetPassword()
-        {
-            return "Hello World!";
-        }
 
         private int RandomNumber(int length)
         {

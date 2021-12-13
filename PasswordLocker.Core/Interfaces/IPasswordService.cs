@@ -2,8 +2,6 @@
 {
     public interface IPasswordService
     {
-        string GeneratePassword(int letters = 6, int digits = 4);
-        string GetPassword();
-
+        public string GeneratePassword(int letters = 6, int digits = 4);
     }
 }
