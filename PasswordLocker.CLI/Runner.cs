@@ -23,6 +23,12 @@ namespace PasswordLocker.CLI
         {
             return _lockerService.Add(locker);
         }
+
+        public Locker Add(string name, string password)
+        {
+            return _lockerService.Add(name, password);
+        }
+
         public bool Update(Locker locker)
         {
             return _lockerService.Update(locker);
@@ -41,6 +47,16 @@ namespace PasswordLocker.CLI
         public IEnumerable<Locker> GetAll()
         {
             return _lockerService.GetAll();
+        }
+
+        public IEnumerable<Entry>? GetAllEntries(string name)
+        {
+            return _lockerService.GetAllEntries(name);
+        }
+
+        public IEnumerable<Entry>? GetEntries(string name, string entryName)
+        {
+            return _lockerService.GetEntries(name, entryName);
         }
     }
 }

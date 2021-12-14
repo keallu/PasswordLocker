@@ -73,15 +73,7 @@ try
 
                         if (locker == null && password != null)
                         {
-                            locker = new()
-                            {
-                                Name = name,
-                                Password = password
-                            };
-
-                            locker.Entries.Add(new Entry { Name = "Default", UserName = "User@account.com", Password = "Password" });
-
-                            locker = runner.Add(locker);
+                            locker = runner.Add(name, password);
                         }
 
                         if (locker != null && password != null && password.Equals(locker.Password))
@@ -116,12 +108,47 @@ try
                                     }
                                     else if (command.StartsWith("s"))
                                     {
+                                        string[] parts = command.Split(' ');
 
+                                        if (parts.Length == 2)
+                                        {
+                                            IEnumerable<Entry>? entries = runner.GetEntries(locker.Name, parts[1]);
+
+                                            if (entries != null)
+                                            {
+                                                Console.WriteLine("Entries:");
+                                                Console.WriteLine("");
+                                                Console.WriteLine($"{"Name",-20} {"User Name",-20} {"Password",-20}");
+                                                Console.WriteLine($"{"----",-20} {"---------",-20} {"--------",-20}");
+
+                                                foreach (Entry entry in entries)
+                                                {
+                                                    Console.WriteLine($"{entry.Name,-20} {entry.UserName,-20} {entry.Password,-20}");
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("");
+                                            Console.WriteLine("Error: Syntax for command was incorrect.");
+                                        }
                                     }
                                     else if (command.StartsWith("l"))
                                     {
-                                        Console.WriteLine("Entries:");
-                                        Console.WriteLine("\tName\tUser Name\tPassword");
+                                        IEnumerable<Entry>? entries = runner.GetAllEntries(locker.Name);
+
+                                        if (entries != null)
+                                        {
+                                            Console.WriteLine("Entries:");
+                                            Console.WriteLine("");
+                                            Console.WriteLine($"{"Name",-20} {"User Name",-20} {"Password",-20}");
+                                            Console.WriteLine($"{"----",-20} {"---------",-20} {"--------",-20}");
+
+                                            foreach (Entry entry in entries)
+                                            {
+                                                Console.WriteLine($"{entry.Name,-20} {entry.UserName,-20} {entry.Password,-20}");
+                                            }
+                                        }
                                     }
                                     else if (command.StartsWith("c"))
                                     {

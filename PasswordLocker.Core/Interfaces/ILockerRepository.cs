@@ -6,5 +6,7 @@ namespace PasswordLocker.Core.Interfaces
     {
         public Locker? FindByName(string name);
         public bool DeleteByName(string name);
+        public IEnumerable<Entry>? FindAllEntries(string name);
+        public IEnumerable<Entry>? FindEntries(string name, string entryName);
     }
 }

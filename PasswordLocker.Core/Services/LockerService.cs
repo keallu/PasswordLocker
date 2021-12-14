@@ -16,6 +16,12 @@ namespace PasswordLocker.Core.Services
         {
             return _lockerRepository.Create(locker);
         }
+
+        public Locker Add(string name, string password)
+        {
+            return Add(new Locker { Name = name, Password = password });
+        }
+
         public bool Update(Locker locker)
         {
             return _lockerRepository.Update(locker);
@@ -39,6 +45,16 @@ namespace PasswordLocker.Core.Services
         public IEnumerable<Locker> GetAll()
         {
             return _lockerRepository.FindAll();
+        }
+
+        public IEnumerable<Entry>? GetAllEntries(string name)
+        {
+            return _lockerRepository.FindAllEntries(name);
+        }
+
+        public IEnumerable<Entry>? GetEntries(string name, string entryName)
+        {
+            return _lockerRepository.FindEntries(name, entryName);
         }
     }
 }

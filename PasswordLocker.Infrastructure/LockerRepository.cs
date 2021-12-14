@@ -26,5 +26,33 @@ namespace PasswordLocker.Infrastructure
 
             return locker != null && _collection.Delete(locker.Id);
         }
+
+        public IEnumerable<Entry>? FindAllEntries(string name)
+        {
+            Locker? locker = _collection.Find(o => o.Name == name)?.FirstOrDefault();
+
+            if (locker != null)
+            {
+                return locker.Entries;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<Entry>? FindEntries(string name, string entryName)
+        {
+            Locker? locker = _collection.Find(o => o.Name == name)?.FirstOrDefault();
+
+            if (locker != null)
+            {
+                return locker.Entries.FindAll(o => o.Name == entryName);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
