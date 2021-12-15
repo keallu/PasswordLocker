@@ -37,9 +37,18 @@ namespace PasswordLocker.Core.Services
             return _lockerRepository.DeleteByName(name);
         }
 
+        public bool RemoveEntry(string name, string entryName)
+        {
+            return _lockerRepository.DeleteEntryByName(name, entryName);
+        }
+
         public Locker? Find(string name)
         {
             return _lockerRepository.FindByName(name);
+        }
+        public Entry? FindEntry(string name, string entryName)
+        {
+            return _lockerRepository.FindEntryByName(name, entryName);
         }
 
         public IEnumerable<Locker> GetAll()

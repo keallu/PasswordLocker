@@ -104,7 +104,26 @@ try
                                     }
                                     else if (command.StartsWith("r"))
                                     {
+                                        string[] parts = command.Split(' ');
 
+                                        if (parts.Length == 2)
+                                        {
+                                            if (runner.RemoveEntry(name, parts[1]))
+                                            {
+                                                Console.WriteLine("");
+                                                Console.WriteLine("Entry was removed.");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("");
+                                                Console.WriteLine("Error: Entry was not found.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("");
+                                            Console.WriteLine("Error: Syntax for command was incorrect.");
+                                        }
                                     }
                                     else if (command.StartsWith("s"))
                                     {
@@ -264,7 +283,7 @@ static void ShowHelp()
     Console.WriteLine("\t\tCommands inside locker are:");
     Console.WriteLine("\t\ta - adds new entry to the locker with syntax \"a <name> <username> <password>\".");
     Console.WriteLine("\t\tr - removes existing entry from the locker with syntax \"r <name>\".");
-    Console.WriteLine("\t\ts - search entire locker for entries with syntax \"s <name>\".");
+    Console.WriteLine("\t\ts - search locker for entries with syntax \"s <name>\".");
     Console.WriteLine("\t\tl - list all entries in the locker.");
     Console.WriteLine("\t\tc - close locker.");
     Console.WriteLine("");

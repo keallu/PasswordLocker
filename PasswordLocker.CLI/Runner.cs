@@ -39,6 +39,11 @@ namespace PasswordLocker.CLI
             return _lockerService.Remove(name);
         }
 
+        public bool RemoveEntry(string name, string entryName)
+        {
+            return _lockerService.RemoveEntry(name, entryName);
+        }
+
         public Locker? Find(string name)
         {
             return _lockerService.Find(name);

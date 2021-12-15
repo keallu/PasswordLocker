@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using PasswordLocker.Core.Entities;
 using PasswordLocker.Core.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace PasswordLocker.Infrastructure
 {
@@ -27,32 +28,32 @@ namespace PasswordLocker.Infrastructure
             return locker != null && _collection.Delete(locker.Id);
         }
 
+        public Entry? FindEntryByName(string name, string entryName)
+        {
+            Locker? locker = FindByName(name);
+
+            return locker?.Entries.Find(o => o.Name == entryName);
+        }
+
+        public bool DeleteEntryByName(string name, string entryName)
+        {
+            Locker? locker = FindByName(name);
+
+            return locker?.Entries.RemoveAll(o => o.Name == entryName) > 0 && Update(locker);
+        }
+
         public IEnumerable<Entry>? FindAllEntries(string name)
         {
-            Locker? locker = _collection.Find(o => o.Name == name)?.FirstOrDefault();
+            Locker? locker = FindByName(name);
 
-            if (locker != null)
-            {
-                return locker.Entries;
-            }
-            else
-            {
-                return null;
-            }
+            return locker?.Entries;
         }
 
         public IEnumerable<Entry>? FindEntries(string name, string entryName)
         {
-            Locker? locker = _collection.Find(o => o.Name == name)?.FirstOrDefault();
+            Locker? locker = FindByName(name);
 
-            if (locker != null)
-            {
-                return locker.Entries.FindAll(o => o.Name == entryName);
-            }
-            else
-            {
-                return null;
-            }
+            return locker?.Entries.FindAll(o => Regex.IsMatch(o.Name, entryName, RegexOptions.IgnoreCase));            
         }
     }
 }
